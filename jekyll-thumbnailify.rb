@@ -8,7 +8,7 @@ module Jekyll
   # generate the html code to display the thumbnail as a link for the
   # image.
   # 
-  # Usage: {% image foo.png %}
+  # Usage: {% t foo.png %}
   # Let $image_dir be the directory where foo.png is.
   # This plugin will generate a thumbnail(160x240) foo_t.png in
   # $image_dir.
@@ -27,10 +27,10 @@ module Jekyll
   #
   # This tag requires RMagick to work properly.
   # Do not use image names with spaces
-  class ImageTag < Liquid::Tag
+  class ThumbnailifyTag < Liquid::Tag
     
     # to use tempfiles in Ruby, we have to keep a reference on them.
-    # otherwise, they will be removed by Ruby.
+    # otherwise, they will be removed by the garbage collector.
     # This array keeps all the refs on tempfiles, so tempfiles are 
     # deleted only when the Ruby process ends.
     @@tempfiles = []
@@ -59,7 +59,7 @@ module Jekyll
         # generate the thumbnail
         thumbnail_ext = File.extname(image_src_path)
         thumbnail_name = File.basename(image_src_path, thumbnail_ext) + '_t' + thumbnail_ext
-        thumbnail = generate_temp_thumbnail(image_src_path, thumbnail_name)
+        thumbnail = generate_thumbnail(image_src_path, thumbnail_name)
         
         # generate jekyll static file
         static_file = ImageStaticFile.new(thumbnail, image_folder, thumbnail_name)
@@ -84,7 +84,7 @@ module Jekyll
     #   +thumbnail_name+ is the name of thumbnail(extension included)
     #
     # Returns the path of the temporary file
-    def generate_temp_thumbnail(image_path, thumbnail_name)
+    def generate_thumbnail(image_path, thumbnail_name)
       # generate thumbnail file
       image_src = Magick::Image.read(image_path).first
       image_src_ext = File.extname(image_path)
@@ -110,7 +110,7 @@ module Jekyll
     end
   end
   
-  # The image static file understood by Jekyll
+  # The image static file model understood by Jekyll
   # This is a sub class of StaticFile. But instead of managing a unique
   # name between the src file and the dest file, we have a src complete 
   # path, a dest path and a dest file name.
@@ -138,4 +138,4 @@ module Jekyll
 end
 
 # register this tag with Liquid
-Liquid::Template.register_tag('image', Jekyll::ImageTag)
+Liquid::Template.register_tag('t', Jekyll::ThumbnailifyTag)
