@@ -1,4 +1,4 @@
-require 'RMagick'
+require 'mini_magick'
 require 'tempfile'
 
 module Jekyll
@@ -86,13 +86,13 @@ module Jekyll
     # Returns the path of the temporary file
     def generate_thumbnail(image_path, thumbnail_name)
       # generate thumbnail file
-      image_src = Magick::Image.read(image_path).first
+      image_src = MiniMagick::Image.open(image_path)
       image_src_ext = File.extname(image_path)
       image_dest = Tempfile.new(thumbnail_name)
       
       # generate the thumbnail with RMagick
-      image_src.crop_resized!(160, 240, Magick::NorthGravity)
-      image_src.write(image_src_ext[1 .. -1] + ':' + image_dest.path)
+      image_src.resize '160x240'
+      image_src.write image_src_ext[1 .. -1] + ':' + image_dest.path
       # store the reference of the tempfile
       @@tempfiles << image_dest
       image_dest.path

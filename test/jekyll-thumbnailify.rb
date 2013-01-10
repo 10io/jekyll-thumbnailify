@@ -9,4 +9,17 @@ class TestJekyllThumbnailify < Test::Unit::TestCase
     assert_not_nil tag
     assert_equal 'Jekyll::ThumbnailifyTag', tag.to_s
   end
+  
+  # Tests that the plugin can be initialized correctly
+  def test_initialize
+    tag = Jekyll::ThumbnailifyTag.new("t", 'foobar.png', nil)
+    assert_not_nil tag
+    assert_equal 'foobar.png', tag.instance_variable_get('@image_file')
+  end
+  
+  def test_initialize_strip_name
+    tag = Jekyll::ThumbnailifyTag.new("t", '    foobar.png       ', nil)
+    assert_not_nil tag
+    assert_equal 'foobar.png', tag.instance_variable_get('@image_file')
+  end
 end
