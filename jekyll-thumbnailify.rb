@@ -45,7 +45,7 @@ module Jekyll
     def render(context)
       # validate image filename
       if @image_file !~ /^[a-zA-Z0-9_\/\.-]+$/ || @image_file =~ /\.\// || @image_file =~ /\/\./
-        return "Image filename '#{@image_file}' contains invalid characters or sequences"
+        return "Image filename '#{@image_file}' contains invalid characters"
       end
       
       # get the images directory
@@ -64,7 +64,6 @@ module Jekyll
         # generate jekyll static file
         static_file = ImageStaticFile.new(thumbnail, image_folder, thumbnail_name)
         site.static_files << static_file
-        
         
         # generate the html part
         html_class = site.config['images_css_class'] || 'image'
@@ -87,12 +86,11 @@ module Jekyll
     def generate_thumbnail(image_path, thumbnail_name)
       # generate thumbnail file
       image_src = MiniMagick::Image.open(image_path)
-      image_src_ext = File.extname(image_path)
       image_dest = Tempfile.new(thumbnail_name)
       
-      # generate the thumbnail with RMagick
+      # generate the thumbnail with mini magick
       image_src.resize '160x240'
-      image_src.write image_src_ext[1 .. -1] + ':' + image_dest.path
+      image_src.write image_dest.path
       # store the reference of the tempfile
       @@tempfiles << image_dest
       image_dest.path
