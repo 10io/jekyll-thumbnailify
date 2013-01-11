@@ -3,9 +3,9 @@
 
 A Jekyll plugin to thumbnailify any image.
 
-This plugin will read an image file from your image folder (by default 'images'), produce a thumbnail version of it and render this html
+This plugin will read an image file from your image folder, produce a thumbnail version of it and render this html
 ```
-<a class="thumbnailify" href="/assets/foobar.png"><img src="/assets/foobar_t.png" /></a>
+<a class="image" href="/images/foobar.png"><img src="/images/foobar_t.png" /></a>
 ```
 
 This way, you can the use any JS plugin to add easily an effect going from the thumbnail image to the real image.
