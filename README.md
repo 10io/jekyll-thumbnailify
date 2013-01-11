@@ -25,6 +25,6 @@ For instance, you can use:
 * In any page of your Jekyll site, use `{% t foo.png %}` to generate the thumbnail image and the link
 
 ## Notes
-* the image folder name can be conigured in the \_config.yml file using the images\_directory variable
+* the image folder name(by default, _images_) can be configured in the \_config.yml file using the images\_directory variable
 * the images\_directory can point to a subfolder, for example: images/posts
-* the css class name of the generated link can be configured in the \_config.yml file using the images\_css\_class variable
+* the css class name(by default, _image_) of the generated link can be configured in the \_config.yml file using the images\_css\_class variable
