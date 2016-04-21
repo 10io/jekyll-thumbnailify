@@ -16,7 +16,7 @@ For instance, you can use:
 * Many others
 
 ## Installation
-* Install mini magick: `gem install mini_magic` (or use `gem "mini_magic"` in your gemfile and then `bundle install`)
+* Install mini magick: `gem install mini_magick` (or use `gem "mini_magick"` in your gemfile and then `bundle install`)
 * At the root of your site, if you don't have one, create a folder called `_plugins`
 * Copy jekyll-thumbnailify.rb: `wget https://raw.github.com/10io/jekyll-thumbnailify/master/jekyll-thumbnailify.rb` (if you don't have wget, [brew](http://mxcl.github.com/homebrew/) it!)
 
